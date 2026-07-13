@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toko Elektronik Cepat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .product-list-item { cursor: pointer; transition: 0.2s; }
+        .product-list-item:hover { background-color: #f8f9fa; }
+        .slideshow-container { position: relative; width: 100%; max-width: 500px; margin: auto; }
+        .slideshow-img { width: 100%; height: 300px; object-fit: cover; border-radius: 8px; }
+    </style>
+</head>
+<body class="bg-light">
+
+    <header class="bg-dark text-white py-3 mb-4 shadow">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <h1 class="h3 m-0 fw-bold">Toko Elektronik Cepat</h1>
+            <div id="waktu-transaksi" class="text-md-end text-center mt-2 mt-md-0 fs-6 font-monospace text-warning">
+                Memuat waktu...
+            </div>
+        </div>
+    </header>
+
+    <main class="container mb-5">
+        <div class="row g-4">
+            
+            <div class="col-lg-6 col-md-7">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <h4 class="card-title mb-3 text-secondary text-start">Detail Produk</h4>
+                        
+                        <div class="slideshow-container my-2">
+                            <img id="slideshow-image" class="slideshow-img border" src="" alt="Gambar Produk">
+                            <div class="d-flex justify-content-between mt-2">
+                                <button class="btn btn-sm btn-outline-secondary px-3" onclick="gantiGambar(-1)">&laquo; Previous</button>
+                                <button class="btn btn-sm btn-outline-secondary px-3" onclick="gantiGambar(1)">Next &raquo;</button>
+                            </div>
+                        </div>
+
+                        <div class="mt-3 text-start">
+                            <h3 id="display-nama" class="fw-bold text-dark">-</h3>
+                            <h4 id="display-harga" class="text-primary fw-semibold">-</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-5">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h4 class="card-title mb-3 text-secondary">Daftar Produk</h4>
+                        <div id="daftar-produk" class="list-group"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-12">
+                <div class="card shadow-sm h-100 border-primary">
+                    <div class="card-body">
+                        <h4 class="card-title mb-3 text-primary">Form Pemesanan</h4>
+                        <div class="mb-3">
+                            <label for="nama-pemesan" class="form-label">Nama Pemesan</label>
+                            <input type="text" id="nama-pemesan" class="form-control" placeholder="Nama lengkap Anda">
+                        </div>
+                        <div class="mb-3">
+                            <label for="jumlah-pesan" class="form-label">Jumlah Pesan</label>
+                            <input type="number" id="jumlah-pesan" class="form-control" min="1" value="1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="kode-promo" class="form-label">Kode Promo</label>
+                            <input type="text" id="kode-promo" class="form-control" placeholder="Contoh: DISKON10">
+                        </div>
+                        <button class="btn btn-primary w-100 fw-bold py-2" onclick="prosesPemesanan()">Pesan Sekarang</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div id="output-struk" class="d-none">
+                    </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Data Array Produk (Minimal 3 produk dengan nama, harga, dan multi url_gambar)
+        var produkData = [
+            {
+                nama: "Laptop ASUS Zenbook",
+                harga: 15000000,
+                gambar: [
+                    "https://dlcdnwebimgs.asus.com/gain/c513878b-1b7e-419a-9cc2-828e5bcbdf91/",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhEmOfQB_G4ZTmcpEVTLiR34A6gJ8OhChhUGHO_3db2eFhHjuVmq3QRnGg9CyuhY3Nwo-4cBrvRokPM3d0Cn9eCLTCiUtg9EVIH6Ah6hIg2KmkNuAGotGFL9eRn1MDdSFKUoPU7LwUHlKg/s1600/asus+ux333+blue+samping.png",
+                    "https://cdn.mos.cms.futurecdn.net/wEcDA3E5a4N9koMD29HWoB.jpg"
+                ]
+            },
+            {
+                nama: "Smartphone Samsung S24",
+                harga: 13500000,
+                gambar: [
+                    "https://m.media-amazon.com/images/I/81vxWpPpgNL.jpg",
+                    "https://asset-2.tstatic.net/bangka/foto/bank/images/20240118-Harga-HP-Samsung-S24-Ultra-5G.jpg",
+                    "https://bumilindo.com/wp-content/uploads/2024/01/Warna-Samsung-Galaxy-S24-Ultra-5G-600x600.png"
+                ]
+            },
+            {
+                nama: "Wireless Headphone Sony",
+                harga: 3500000,
+                gambar: [
+                    "https://m.media-amazon.com/images/I/61AQDfwqfqL._AC_.jpg",
+                    "https://www.theaudiostore.in/cdn/shop/files/Sony-WH-1000XM6-Active-Noise-Canceling-Wireless-Headphones-India-black-4_1024x.jpg?v=1747374689"
+                ]
+            }
+        ];
+
+        // State / Variabel Pembantu Navigasi Aktif
+        var produkAktifIndex = 0;
+        var gambarAktifIndex = 0;
+
+        // 1. UPDATE JAM DAN TANGGAL SECARA DINAMIS (Objek Date & setInterval)
+        function updateWaktu() {
+            var sekarang = new Date();
+            var opsiTanggal = { year: 'numeric', month: 'long', day: 'numeric' };
+            var formatTanggal = sekarang.toLocaleDateString('id-ID', opsiTanggal);
+            
+            var jam = sekarang.getHours().toString().padStart(2, '0');
+            var menit = bandwidth = sekarang.getMinutes().toString().padStart(2, '0');
+            var detik = sekarang.getSeconds().toString().padStart(2, '0');
+            
+            document.getElementById("waktu-transaksi").innerText = formatTanggal + " | " + jam + ":" + menit + ":" + detik;
+        }
+        setInterval(updateWaktu, 1000);
+        updateWaktu(); // Jalankan instan sekali
+
+        // 3. GENERATE DAFTAR PRODUK MENGGUNAKAN PERULANGAN (Praktikum 4)
+        function renderDaftarProduk() {
+            var wadahDaftar = document.getElementById("daftar-produk");
+            wadahDaftar.innerHTML = ""; // Bersihkan kontainer
+
+            for (var i = 0; i < produkData.length; i++) {
+                var formatHargaList = "Rp " + produkData[i].harga.toLocaleString('id-ID');
+                
+                // Membuat elemen list dinamis
+                var tombolProduk = document.createElement("button");
+                tombolProduk.className = "list-group-item list-group-item-action product-list-item d-flex flex-column py-3";
+                if (i === produkAktifIndex) tombolProduk.className += " active text-white";
+                
+                tombolProduk.setAttribute("onclick", "pilihProduk(" + i + ")");
+                tombolProduk.innerHTML = "<span class='fw-bold'>" + produkData[i].nama + "</span><small>" + formatHargaList + "</small>";
+                
+                wadahDaftar.appendChild(tombolProduk);
+            }
+        }
+
+        // FUNGSI UNTUK MENGGANTI PRODUK AKTIF SAAT ITEM DI DAFTAR DIKLIK
+        function pilihProduk(index) {
+            produkAktifIndex = index;
+            gambarAktifIndex = 0; // Reset ke gambar pertama produk baru
+            updateDisplayUtama();
+            renderDaftarProduk(); // Update status class 'active' pada list menu
+        }
+
+        // 2. FUNGSI UNTUK MERENDER DISPLAY UTAMA (Nama, Harga, dan Slideshow)
+        function updateDisplayUtama() {
+            var produk = produkData[produkAktifIndex];
+            
+            document.getElementById("display-nama").innerText = produk.nama;
+            document.getElementById("display-harga").innerText = "Rp " + produk.harga.toLocaleString('id-ID');
+            document.getElementById("slideshow-image").src = produk.gambar[gambarAktifIndex];
+        }
+
+        // FUNGSI NAVIGASI IMAGE SLIDESHOW (Praktikum 11)
+        function gantiGambar(arah) {
+            var daftarGambar = produkData[produkAktifIndex].gambar;
+            gambarAktifIndex += arah;
+
+            // Logika tak terbatas (Sirkular)
+            if (gambarAktifIndex >= daftarGambar.length) {
+                gambarAktifIndex = 0;
+            }
+            if (gambarAktifIndex < 0) {
+                gambarAktifIndex = daftarGambar.length - 1;
+            }
+            document.getElementById("slideshow-image").src = daftarGambar[gambarAktifIndex];
+        }
+
+        // 5. LOGIKA PEMESANAN (Validasi, Perhitungan, Objek String & Math)
+        function prosesPemesanan() {
+            var nama = document.getElementById("nama-pemesan").value.trim();
+            var jumlah = parseInt(document.getElementById("jumlah-pesan").value);
+            var kodePromo = document.getElementById("kode-promo").value.trim();
+            var produk = produkData[produkAktifIndex];
+
+            // A. Validasi Form (Praktikum 5)
+            if (nama === "") {
+                alert("Kesalahan: Nama pemesan tidak boleh kosong!");
+                return;
+            }
+            if (isNaN(jumlah) || jumlah <= 0) {
+                alert("Kesalahan: Jumlah pesan harus diisi dan lebih besar dari 0!");
+                return;
+            }
+
+            // B. Perhitungan Total & Percabangan Diskon (Praktikum 3 & Objek String)
+            var subtotal = produk.harga * jumlah;
+            var potongan = 0;
+
+            // Mengubah kode promo ke huruf besar menggunakan .toUpperCase()
+            if (kodePromo.toUpperCase() === "DISKON10") {
+                potongan = subtotal * 0.10; // Potongan 10%
+            }
+
+            var totalAkhir = subtotal - potongan;
+
+            // C. Generate Order ID Acak Unik (Praktikum 9 via Math.random)
+            // Menghasilkan 5 digit bilangan bulat acak (10000 sampai 99999)
+            var angkaAcak = Math.floor(Math.random() * 90000) + 10000;
+            var orderID = "INV-" + angkaAcak;
+
+            // D. Tampilkan Struk/Ringkasan Pesanan ke Area Output
+            var divStruk = document.getElementById("output-struk");
+            divStruk.className = "card border-success shadow-sm mt-3 animate-fade-in";
+            
+            divStruk.innerHTML = `
+                <div class="card-header bg-success text-white fw-bold">
+                    🎉 Struk Ringkasan Pesanan Berhasil Dibuat
+                </div>
+                <div class="card-body">
+                    <div class="row bg-light p-2 rounded mb-3 font-monospace">
+                        <div class="col-sm-6"><strong>ID PESANAN:</strong> <span class="text-danger fw-bold">${orderID}</span></div>
+                        <div class="col-sm-6 text-sm-end"><strong>Waktu Cetak:</strong> ${new Date().toLocaleTimeString('id-ID')}</div>
+                    </div>
+                    <table class="table table-sm table-borderless m-0">
+                        <tr><td width="35%">Nama Pemesan</td><td>: ${nama}</td></tr>
+                        <tr><td>Nama Produk</td><td>: <strong>${produk.nama}</strong></td></tr>
+                        <tr><td>Jumlah Item</td><td>: ${jumlah} unit</td></tr>
+                        <tr class="border-top"><td>Subtotal</td><td>: Rp ${subtotal.toLocaleString('id-ID')}</td></tr>
+                        <tr class="text-danger"><td>Potongan Diskon</td><td>: - Rp ${potongan.toLocaleString('id-ID')}</td></tr>
+                        <tr class="border-top table-success fs-5 fw-bold text-success">
+                            <td>TOTAL AKHIR</td><td>: Rp ${totalAkhir.toLocaleString('id-ID')}</td></tr>
+                    </table>
+                </div>
+            `;
+            
+            // Gulir otomatis layar ke arah struk agar langsung terbaca
+            divStruk.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // KONDISI AWAL SAAT HALAMAN PERTAMA KALI DIMUAT
+        window.onload = function() {
+            updateDisplayUtama(); // Tampilkan produk pertama dari array
+            renderDaftarProduk();  // Bangun daftar menu samping
+        };
+    </script>
+</body>
+</html>
