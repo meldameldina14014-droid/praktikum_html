@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Company Profile - Tugas Praktikum</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <style>
+    .card-btn-custom {
+      transition: all 0.3s ease;
+    }
+    .card-btn-custom:hover {
+      background-color: #198754 !important; /* Berubah jadi hijau saat di-hover */
+      border-color: #198754 !important;
+      transform: scale(1.05); /* Sedikit membesar */
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="javascript:void(0)">TechCorp</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mynavbar">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="javascript:void(0)">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-4 mb-5">
+    
+    <div class="text-center mb-4">
+      <h2>Profil Perusahaan</h2>
+      <p class="lead">Solusi Teknologi Terdepan untuk Masa Depan Anda</p>
+    </div>
+
+    <div class="card mb-5 shadow-sm">
+      <div class="card-header bg-secondary text-white">
+        <h5>Informasi Penting Perusahaan</h5>
+      </div>
+      <div class="card-body p-0">
+        <table class="table table-striped table-hover mb-0">
+          <thead>
+            <tr>
+              <th>Detail Kategori</th>
+              <th>Informasi Resmi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Nama Perusahaan</strong></td>
+              <td>PT.Bangga Teknologi Indonesia.</td>
+            </tr>
+            <tr>
+              <td><strong>Tahun Berdiri</strong></td>
+              <td>1998</td>
+            </tr>
+            <tr>
+              <td><strong>Jumlah Karyawan</strong></td>
+              <td>500</td>
+            </tr>
+            <tr>
+              <td><strong>Lokasi Kantor</strong></td>
+              <td>Bontang, Kalimantan Timur</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h4 class="mb-3 text-center">Produk & Layanan Kami</h4>
+    <div class="row g-4">
+      
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <img class="card-img-top" src="https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/102/MTA-174477234/advan_laptop_advan_workpro_lite_i3-1220p_14-inch_ram_8gb_-_ssd_256gb_win11_home_full06_gtim06c8.jpg"lt="Layanan 1" style="height: 250px; object-fit: cover;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">laptop avdan</h5>
+            <p class="card-text">Advan memposisikan produk laptop mereka untuk menyasar segmen pasar entry-level hingga menengah, seperti pelajar, pelajar, dan pekerja kantoran. Keunggulan utamanya adalah harga yang sangat kompetitif dan terjangkau dibandingkan dengan merek-merek global (seperti ASUS, Lenovo, atau HP) untuk spesifikasi kelas yang sama..</p>
+            <a href="#" class="btn btn-primary mt-auto card-btn-custom">Selengkapnya</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <img class="card-img-top" src="https://carisinyal.com/wp-content/uploads/2018/01/advan-g2-plus.jpg" alt="Layanan 2" style="height: 250px; object-fit: cover;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">hp avdann</h5>
+            <p class="card-text">Strategi utama HP Advan adalah menawarkan fungsi ponsel pintar dengan harga yang ramah di kantong masyarakat luas. Sebagian besar HP Advan dibanderol di kisaran harga di bawah 1 juta hingga 1,5 juta rupiah . Target pasarnya adalah pengguna HP pertama kali ( pengguna pertama kali ), anak-anak sekolah untuk kebutuhan belajar dasar, serta para pekerja lapangan (seperti pengemudi ojek online)..</p>
+            <a href="#" class="btn btn-primary mt-auto card-btn-custom">Selengkapnya</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <img class="card-img-top" src="https://down-id.img.susercontent.com/file/id-11134207-7r98q-lzrfq8otd7343c" alt="Layanan 3" style="height: 250px; object-fit: cover;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">tablet avdan</h5>
+            <p class="card-text">Tablet Advan (atau dikenal sebagai seri Advan Tab) adalah jajaran perangkat komputer meja portabel (tablet) berbasis sistem operasi Android yang diproduksi oleh PT Bangga Teknologi Indonesia.
+
+Di saat pasar tablet global didominasi oleh merek-merek besar berharga tinggi, Advan menjadi salah satu merek lokal yang paling konsisten dan sukses mempertahankan eksistensinya di pasar tablet Indonesia, khususnya untuk kelas entry-level hingga menengah..</p>
+            <a href="#" class="btn btn-primary mt-auto card-btn-custom">Selengkapnya</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="bg-dark text-white text-center py-3 mt-auto">
+    <div class="container">
+      <p class="mb-1">&copy; 1998 PT.Bangga Teknologi Indonesia All Rights Reserved.</p>
+      <small>Hubungi Kami: info@techcorp.co.id | @techcorp_id</small>
+    </div>
+  </footer>
+
+</body>
+</html>
